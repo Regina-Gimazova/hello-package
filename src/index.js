@@ -1,37 +1,14 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
-import VidyoConnector from './VidyoConnector';
+import AppComponent from './AppComponent';
 import registerServiceWorker from './registerServiceWorker';
 
-const host              = getUrlParameterByName("host", "prod.vidyo.io");
-const token             = getUrlParameterByName("token");
-const resourceId        = getUrlParameterByName("resourceId", "demoRoom");
-const displayName       = getUrlParameterByName("displayName", "Guest");
 const useNativeWebRTC   = getUrlParameterByName("useNativeWebRTC", true);
 
 loadRemoteVidyoClientLib(useNativeWebRTC, false);
 
-const viewId                = "renderer";
-const viewStyle             = "VIDYO_CONNECTORVIEWSTYLE_Default";
-const remoteParticipants    = 8;
-const logFileFilter         = "warning all@VidyoConnector info@VidyoClient";
-const logFileName           = "";
-const userData              = "";
-
-ReactDOM.render(<VidyoConnector 
-                    host        = { host }
-                    token       = { token }
-                    resourceId  = { resourceId }
-                    displayName = { displayName }
-                    viewId             = { viewId }
-                    viewStyle          = { viewStyle }
-                    remoteParticipants = { remoteParticipants }
-                    logFileFilter      = { logFileFilter }
-                    logFileName        = { logFileName }
-                    userData           = { userData }
-                />, 
-                document.getElementById('root'));
+ReactDOM.render(<AppComponent/>, document.getElementById('root'));
 
 registerServiceWorker();
 

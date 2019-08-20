@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import './VidyoConnector.css';
-import EntranceForm from './components/EntranceForm';
-import Toolbar from './components/Toolbar';
+import EntranceForm from './EntranceForm';
+import Toolbar from './Toolbar';
 
 class VidyoConnector extends Component {
   constructor(props) {
@@ -57,7 +57,7 @@ class VidyoConnector extends Component {
     this.setState({ connectionStatus: 'Initializing...' });
 
     this.vidyoConnector.GetVersion().then((version) => {
-        this.setState({ clientVersion: `v${version}` }); 
+        this.setState({ clientVersion: `v${version}` });
     }).catch(() => {
         // GetVersion failed
     });
@@ -134,7 +134,7 @@ class VidyoConnector extends Component {
     }).catch(() => {
         // RegisterLocalSpeakerEventListener Failed
     });
-    
+
     this.setState({ cameras, microphones, speakers });
   }
 
@@ -174,12 +174,12 @@ class VidyoConnector extends Component {
                         connectionStatus });
     }
     this.vidyoConnector.Connect({
-        
+
         host:         this.state.host,
         token:        this.state.token,
         displayName:  this.state.displayName,
         resourceId:   this.state.resourceId,
-        
+
         onSuccess:      () => {
                             this.setState({ connectionStatus:   "Connected",
                                             entranceFormHidden: true        });
@@ -273,7 +273,7 @@ class VidyoConnector extends Component {
         }
     }
   }
-  
+
   microphoneButtonOnClick(microphoneButtonState) {
     this.setState({ microphoneButtonState });
 
@@ -314,16 +314,16 @@ class VidyoConnector extends Component {
       <div className="vidyo-connector">
         <div id={ this.props.viewId } className="renderer pluginOverlay rendererFullScreen"></div>
         <EntranceForm
-            host                     = { this.state.host } 
+            host                     = { this.state.host }
             token                    = { this.state.token }
-            resourceId               = { this.state.resourceId } 
-            displayName              = { this.state.displayName } 
+            resourceId               = { this.state.resourceId }
+            displayName              = { this.state.displayName }
             hidden                   = { this.state.entranceFormHidden }
 
             onToggle                 = { this.onEntranceToggle.bind(this) }
             onDataChanged            = { this.onEntranceDataChanged.bind(this) }
         />
-        <Toolbar 
+        <Toolbar
             clientVersion            = { this.state.clientVersion }
             connectionStatus         = { this.state.connectionStatus }
             participantStatus        = { this.state.participantStatus }
