@@ -12,7 +12,7 @@ const RoomList = ({rooms}) => {
               id: {room.id}
             </p>
             <p>
-              name: {room.name}
+              name: {room.user_name}
             </p>
           </Link>
         </li>

@@ -1,4 +1,3 @@
-import Api from './service/api';
 import VidyoConnector from './components/VidyoConnector';
 import PendingCallsList from './components/pendingCallsList'
 import React, { Component } from 'react';
@@ -19,10 +18,6 @@ class AppComponent extends Component {
   constructor(props) {
     super(props);
     this.state = {isOnCall: true};
-  }
-
-  componentDidMount() {
-    this.loadCustomerList();
   }
 
   render() {
@@ -58,16 +53,6 @@ class AppComponent extends Component {
   onCallEnded() {
     // setState to noCall
     // load loadCustomerList
-  }
-
-  loadCustomerList() {
-    Api.getPendingCallsList()
-      .then(list => {
-        // set list to state
-      })
-      .catch(error => {
-        //TODO onError
-      })
   }
 }
 
