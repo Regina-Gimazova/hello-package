@@ -48,11 +48,11 @@
     transition:             all 1s;
 }
 .button-open {
-    background-image:   url(../images/x.png);
+    background-image:   url(../../images/x.png);
     opacity:            0.5;
 }
 .button-close {
-    background-image:   url(../images/x.png);
+    background-image:   url(../../images/x.png);
     transform:          rotate(-45deg);
 }
 

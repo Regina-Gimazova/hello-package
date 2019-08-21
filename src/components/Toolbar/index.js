@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import './Toolbar.css';
+import '../Toolbar.css';
 
 class Toolbar extends Component {
 
@@ -71,7 +71,9 @@ class Toolbar extends Component {
                       id='screenShareButton'
                       title={ this.screenShareButtonTittle }
                       className={ this.computedStyles.screenShareButtonStyle }
-                      onClick={ () => this.screenShareButtonOnClick() }>
+                      onClick={ () => this.screenShareButtonOnClick() }
+                      disabled="disabled"
+              >
                   <div className={ this.computedStyles.shareButtonImageStyle }></div>
               </button>
           </div>

@@ -1,12 +1,12 @@
 import React, { Component } from 'react';
 import './VidyoConnector.css';
-import EntranceForm from './EntranceForm';
-import Toolbar from './Toolbar';
+import Toolbar from '../Toolbar';
 
 class VidyoConnector extends Component {
   constructor(props) {
     super(props);
     this.state = {
+        host: 'prod.vidyo.io',
         /* local devices */
         microphones:            {},
         speakers:               {},
@@ -23,12 +23,6 @@ class VidyoConnector extends Component {
         microphoneButtonState:  true,
         joinLeaveButtonState:   true,
         cameraButtonState:      true,
-        /* EntranceForm props */
-        host:                   this.props.host,
-        token:                  this.props.token,
-        resourceId:             this.props.resourceId,
-        displayName:            this.props.displayName,
-        entranceFormHidden:     true
     };
 
     this.vidyoConnector = null;
@@ -141,7 +135,7 @@ class VidyoConnector extends Component {
   handleParticipantChange() {
     let getParticipantName = (participant, cb) => {
         participant.GetName().then( name => cb(name) );
-    }
+    };
     this.vidyoConnector.RegisterParticipantEventListener({
         onJoined:           (participant) => {
                                 getParticipantName(participant, (name) => {
@@ -176,16 +170,14 @@ class VidyoConnector extends Component {
     this.vidyoConnector.Connect({
 
         host:         this.state.host,
-        token:        this.state.token,
+        token:        'cHJvdmlzaW9uADFANWRlNDE0LnZpZHlvLmlvADYzNzMzNjAwODc2AAA0ZjQ0NzNhZDA2NDY5MTA2YmYyMjdiOWVlYzAxMzU3MWZiNGIzZTFkOTc4ZDE2NzA4OGJlNWEzNTIwODI3ZGZlNGEzYzliNmMxNmIzMDVkOTJkZDQxMmUwN2M3Yzk2Mzc=',
         displayName:  this.state.displayName,
-        resourceId:   this.state.resourceId,
+        resourceId:   '1',
 
         onSuccess:      () => {
-                            this.setState({ connectionStatus:   "Connected",
-                                            entranceFormHidden: true        });
+                            this.setState({ connectionStatus:   "Connected" });
                         },
         onFailure:      (reason) => {
-                            this.setState({ entranceFormHidden: false       });
                             connectorDisconnected("Failed");
                         },
         onDisconnected: (reason) => {
@@ -193,11 +185,11 @@ class VidyoConnector extends Component {
                         }
     }).then((status) => {
         if (status) {
-            // Connected
         } else {
             connectorDisconnected("Failed");
         }
-    }).catch(() => {
+    }).catch((error) => {
+        console.log(error)
         connectorDisconnected("Failed");
     });
   }
@@ -233,14 +225,6 @@ class VidyoConnector extends Component {
     });
 
     this.setState({ screenShares });
-  }
-
-  onEntranceDataChanged(payload) {
-    this.setState(payload);
-  }
-
-  onEntranceToggle() {
-    this.setState({ entranceFormHidden: !this.state.entranceFormHidden });
   }
 
   cameraButtonOnClick(cameraButtonState) {
@@ -288,20 +272,6 @@ class VidyoConnector extends Component {
     }
   }
 
-  screenShareButtonOnClick(screenShareButtonState) {
-    this.setState({ screenShareButtonState });
-    let share = this.state.screenShareButtonState ? this.state.screenShares[Object.keys(this.state.screenShares)[0]] || null : null;
-
-    if (this.vidyoConnector) {
-        this.vidyoConnector.SelectLocalWindowShare({
-            localWindowShare: share
-        }).then(() => {
-            // SelectLocalMonitor Success
-        }).catch(() => {
-            // SelectLocalMonitor Failed
-        });
-    }
-  }
 
   readyEventListener() {
     document.addEventListener('vidyoclient:ready', (e) => {
@@ -309,20 +279,10 @@ class VidyoConnector extends Component {
     });
   }
 
-  render() {
+    render() {
     return (
       <div className="vidyo-connector">
         <div id={ this.props.viewId } className="renderer pluginOverlay rendererFullScreen"></div>
-        <EntranceForm
-            host                     = { this.state.host }
-            token                    = { this.state.token }
-            resourceId               = { this.state.resourceId }
-            displayName              = { this.state.displayName }
-            hidden                   = { this.state.entranceFormHidden }
-
-            onToggle                 = { this.onEntranceToggle.bind(this) }
-            onDataChanged            = { this.onEntranceDataChanged.bind(this) }
-        />
         <Toolbar
             clientVersion            = { this.state.clientVersion }
             connectionStatus         = { this.state.connectionStatus }
@@ -337,7 +297,6 @@ class VidyoConnector extends Component {
             cameraButtonOnClick      = { this.cameraButtonOnClick.bind(this) }
             joinLeaveButtonOnClick   = { this.joinLeaveButtonOnClick.bind(this) }
             microphoneButtonOnClick  = { this.microphoneButtonOnClick.bind(this) }
-            screenShareButtonOnClick = { this.screenShareButtonOnClick.bind(this) }
         />
       </div>
     );
