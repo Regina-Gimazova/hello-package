@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import {Link} from 'react-router-dom';
 import './Toolbar.css';
 
 class Toolbar extends Component {
@@ -47,6 +48,11 @@ class Toolbar extends Component {
       <div className="toolbar">
           <div id='toolbarLeft' className="toolbarLeft">
               <span id="participantStatus" className="participantStatus">{ this.props.participantStatus }</span>
+              <Link to='/'>
+                  <span className='backLinkStyle'>
+                      Back to rooms list
+                  </span>
+              </Link>
           </div>
           <div id='toolbarCenter' className="toolbarCenter">
               <button 
@@ -71,7 +77,9 @@ class Toolbar extends Component {
                       id='screenShareButton'
                       title={ this.screenShareButtonTittle }
                       className={ this.computedStyles.screenShareButtonStyle }
-                      onClick={ () => this.screenShareButtonOnClick() }>
+                      onClick={ () => this.screenShareButtonOnClick() }
+                      disabled="disabled"
+              >
                   <div className={ this.computedStyles.shareButtonImageStyle }></div>
               </button>
           </div>

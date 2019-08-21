@@ -1,16 +1,13 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
+import { BrowserRouter as Router } from 'react-router-dom';
+import * as registerServiceWorker from './registerServiceWorker';
 import './index.css';
-import AppComponent from './AppComponent';
-import registerServiceWorker from './registerServiceWorker';
+import App from './App';
 
-const useNativeWebRTC   = getUrlParameterByName("useNativeWebRTC", true);
+const useNativeWebRTC = getUrlParameterByName("useNativeWebRTC", true);
 
 loadRemoteVidyoClientLib(useNativeWebRTC, false);
-
-ReactDOM.render(<AppComponent/>, document.getElementById('root'));
-
-registerServiceWorker();
 
 function loadRemoteVidyoClientLib(useNativeWebRTC = false, plugin = false) {
     let script  = document.createElement('script');
@@ -23,3 +20,13 @@ function getUrlParameterByName(name, _default = '') {
     let match = RegExp('[?&]' + name + '=([^&]*)').exec(window.location.search);
     return (match && decodeURIComponent(match[1].replace(/\+/g, ' '))) || _default;
 }
+
+
+ReactDOM.render(
+    <Router>
+        <App />
+    </Router>,
+    document.getElementById('root'),
+);
+
+registerServiceWorker.unregister();
