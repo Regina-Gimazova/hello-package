@@ -272,11 +272,14 @@ class VidyoConnector extends Component {
     }
   }
 
-
   readyEventListener() {
-    document.addEventListener('vidyoclient:ready', (e) => {
-      this.createVidyoConnector(e.detail);
-    });
+    if (window.LATEST_EVENT) {
+      this.createVidyoConnector(window.LATEST_EVENT.detail);
+    } else {
+      document.addEventListener('vidyoclient:ready', (e) => {
+        this.createVidyoConnector(e.detail);
+      });
+    }
   }
 
     render() {

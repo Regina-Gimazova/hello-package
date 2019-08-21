@@ -18,6 +18,7 @@
                   //
               });
               let event = new CustomEvent('vidyoclient:ready', {detail: VC});
+              window.LATEST_EVENT = event;
               document.dispatchEvent(event);
               break;
             case "RETRYING":          // The library operating is temporarily paused
