@@ -1,4 +1,4 @@
-import Api from './data/api';
+import Api from './service/api';
 import VidyoConnector from './components/VidyoConnector';
 import PendingCallsList from './components/pendingCallsList'
 import React, { Component } from 'react';
