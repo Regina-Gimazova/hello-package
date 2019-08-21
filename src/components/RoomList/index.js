@@ -6,7 +6,7 @@ const RoomList = ({rooms}) => {
   return (
     <ul className='room-list'>
       {rooms.map((room) => (
-        <li>
+        <li key={room.id}>
           <Link to='/call'>
             <p>
               id: {room.id}

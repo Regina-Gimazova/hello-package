@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
-import '../Toolbar.css';
+import {Link} from 'react-router-dom';
+import './Toolbar.css';
 
 class Toolbar extends Component {
 
@@ -47,6 +48,11 @@ class Toolbar extends Component {
       <div className="toolbar">
           <div id='toolbarLeft' className="toolbarLeft">
               <span id="participantStatus" className="participantStatus">{ this.props.participantStatus }</span>
+              <Link to='/'>
+                  <span className='backLinkStyle'>
+                      Back to rooms list
+                  </span>
+              </Link>
           </div>
           <div id='toolbarCenter' className="toolbarCenter">
               <button 

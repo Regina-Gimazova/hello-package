@@ -170,7 +170,7 @@ class VidyoConnector extends Component {
     this.vidyoConnector.Connect({
 
         host:         this.state.host,
-        token:        'cHJvdmlzaW9uADFANWRlNDE0LnZpZHlvLmlvADYzNzMzNjAwODc2AAA0ZjQ0NzNhZDA2NDY5MTA2YmYyMjdiOWVlYzAxMzU3MWZiNGIzZTFkOTc4ZDE2NzA4OGJlNWEzNTIwODI3ZGZlNGEzYzliNmMxNmIzMDVkOTJkZDQxMmUwN2M3Yzk2Mzc=',
+        token:        'cHJvdmlzaW9uAHVzZXIxQDVkZTQxNC52aWR5by5pbwA2MzczMzcwNTEzNgAANjc0NzFkMjdhNTNlODJkMTQ1MTliODI3NGYzZDg3YmQzZGY3MzM5ZjQ1OTIwOGJiYjg0OWJiODRmOTJmYTQxMWU1YzRjYWEwNWU2MWFjNmRjMjQwZDgwYzY5YjM3Zjhi=',
         displayName:  this.state.displayName,
         resourceId:   '1',
 

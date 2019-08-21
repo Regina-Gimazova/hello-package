@@ -58,7 +58,7 @@
 	mask-size:     		20px auto;
 	mask-repeat:   		no-repeat;
 	mask-position: 		center;
-	mask-image: 	 	url(../images/desktop.svg);
+	mask-image: 	 	url(../../images/desktop.svg);
 	transition: 		all .5s;
 }
 .startShare {
@@ -75,12 +75,12 @@
 	margin-right: 		-1px;
 }
 
-.cameraOn      { background-image: url(../images/cameraOn.png); }
-.cameraOff     { background-image: url(../images/cameraOff.png); }
-.microphoneOn  { background-image: url(../images/microphoneOn.png); }
-.microphoneOff { background-image: url(../images/microphoneOff.png); }
-.callStart     { background-image: url(../images/callStart.png); }
-.callEnd       { background-image: url(../images/callEnd.png); }
+.cameraOn      { background-image: url(../../images/cameraOn.png); }
+.cameraOff     { background-image: url(../../images/cameraOff.png); }
+.microphoneOn  { background-image: url(../../images/microphoneOn.png); }
+.microphoneOff { background-image: url(../../images/microphoneOff.png); }
+.callStart     { background-image: url(../../images/callStart.png); }
+.callEnd       { background-image: url(../../images/callEnd.png); }
 
 .participantStatus {
 	line-height:  70px;
@@ -107,4 +107,15 @@
 .unavailable {
 	pointer-events: none;
 	opacity: 0.25;
+}
+
+.backLinkStyle {
+	background-color: rgb(24, 27, 31);
+	border: none;
+	color: #fff;
+	position: absolute;
+	line-height: 70px;
+	text-transform: uppercase;
+	right: 0;
+	font-size: 16px;
 }
