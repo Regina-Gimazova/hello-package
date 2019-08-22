@@ -255,6 +255,10 @@ class VidyoConnector extends Component {
     if (this.vidyoConnector) {
         this.vidyoConnector.SetCameraPrivacy({
             privacy: this.state.cameraButtonState
+        }).then(() => {
+            // SetCameraPrivacy Success
+        }).catch(() => {
+            // SetCameraPrivacy Failed
         });
     }
   }
@@ -280,6 +284,9 @@ class VidyoConnector extends Component {
       this.setState({connectionStatus: "Disconnecting..."});
       if (this.state.cameraButtonState) {
         this.cameraButtonOnClick(!this.state.cameraButtonState);
+      }
+      if (this.state.microphoneButtonState) {
+        this.microphoneButtonOnClick(!this.state.microphoneButtonState);
       }
       if (this.vidyoConnector) {
           this.vidyoConnector.Disconnect().then(() => {
