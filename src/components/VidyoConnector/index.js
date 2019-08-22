@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import Api from "../../service/api";
 import './VidyoConnector.css';
 import Toolbar from '../Toolbar';
 
@@ -7,6 +8,9 @@ class VidyoConnector extends Component {
     super(props);
     this.state = {
         host: 'prod.vidyo.io',
+        token: '',
+        displayName: '',
+        resourceId: '',
         /* local devices */
         microphones:            {},
         speakers:               {},
@@ -27,7 +31,25 @@ class VidyoConnector extends Component {
 
     this.vidyoConnector = null;
     this.readyEventListener();
+    this.getToken();
   }
+
+  componentDidMount() {
+      this.setState({resourceId: localStorage.getItem('resourceId')});
+      this.setState({displayName: localStorage.getItem('displayName')})
+  }
+
+  getToken = () => {
+    Api.getPendingCallsList()
+      .then(data => {
+          this.setState({
+              token: data.meta.support_token,
+          })
+      })
+      .catch(error => {
+        console.log('Get Token failed')
+      })
+  };
 
   createVidyoConnector(VC) {
     VC.CreateVidyoConnector({
@@ -166,13 +188,14 @@ class VidyoConnector extends Component {
     let connectorDisconnected = (connectionStatus) => {
         this.setState({ joinLeaveButtonState: true,
                         connectionStatus });
-    }
+    };
+
     this.vidyoConnector.Connect({
 
         host:         this.state.host,
-        token:        'cHJvdmlzaW9uAHVzZXIxQDVkZTQxNC52aWR5by5pbwA2MzczMzcwNTEzNgAANjc0NzFkMjdhNTNlODJkMTQ1MTliODI3NGYzZDg3YmQzZGY3MzM5ZjQ1OTIwOGJiYjg0OWJiODRmOTJmYTQxMWU1YzRjYWEwNWU2MWFjNmRjMjQwZDgwYzY5YjM3Zjhi=',
+        token:        this.state.token,
         displayName:  this.state.displayName,
-        resourceId:   '1',
+        resourceId:   this.state.resourceId,
 
         onSuccess:      () => {
                             this.setState({ connectionStatus:   "Connected" });
@@ -258,6 +281,17 @@ class VidyoConnector extends Component {
     }
   }
 
+  returnToRoomListOnClick() {
+      this.setState({connectionStatus: "Disconnecting..."});
+      if (this.vidyoConnector) {
+          this.vidyoConnector.Disconnect().then(() => {
+              // Disconnect Success
+          }).catch(() => {
+              // Disconnect Failure
+          });
+      }
+  }
+
   microphoneButtonOnClick(microphoneButtonState) {
     this.setState({ microphoneButtonState });
 
@@ -282,7 +316,7 @@ class VidyoConnector extends Component {
     }
   }
 
-    render() {
+  render() {
     return (
       <div className="vidyo-connector">
         <div id={ this.props.viewId } className="renderer pluginOverlay rendererFullScreen"></div>
@@ -300,6 +334,7 @@ class VidyoConnector extends Component {
             cameraButtonOnClick      = { this.cameraButtonOnClick.bind(this) }
             joinLeaveButtonOnClick   = { this.joinLeaveButtonOnClick.bind(this) }
             microphoneButtonOnClick  = { this.microphoneButtonOnClick.bind(this) }
+            returnToRoomListOnClick  = { this.returnToRoomListOnClick.bind(this)}
         />
       </div>
     );

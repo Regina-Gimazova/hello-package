@@ -48,7 +48,7 @@ class Toolbar extends Component {
       <div className="toolbar">
           <div id='toolbarLeft' className="toolbarLeft">
               <span id="participantStatus" className="participantStatus">{ this.props.participantStatus }</span>
-              <Link to='/'>
+              <Link to='/' onClick={this.props.returnToRoomListOnClick}>
                   <span className='backLinkStyle'>
                       Back to rooms list
                   </span>

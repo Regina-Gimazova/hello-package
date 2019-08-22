@@ -5,20 +5,21 @@ import Api from "../../service/api";
 
 const StartPage = () => {
   const [customers, setCustomers] = useState([]);
+  const [error, setError] = useState('');
 
   const loadCustomerList = () => {
     Api.getPendingCallsList()
-      .then(list => {
-        setCustomers(list)
+      .then(data => {
+        setCustomers(data.rooms)
       })
       .catch(error => {
-        //TODO onError
+        console.log(error)
       })
   };
 
   useEffect(() => {
     loadCustomerList()
-  });
+  }, []);
 
   return (
     <div className='container'>

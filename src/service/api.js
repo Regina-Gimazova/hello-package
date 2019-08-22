@@ -8,7 +8,7 @@ class Api {
 
   getPendingCallsList() {
     return this.axios.get('support/rooms/active')
-      .then(response => response.data.rooms);
+      .then(response => response.data);
   }
 }
 
