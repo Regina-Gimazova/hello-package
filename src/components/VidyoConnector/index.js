@@ -252,14 +252,9 @@ class VidyoConnector extends Component {
 
   cameraButtonOnClick(cameraButtonState) {
     this.setState({ cameraButtonState });
-
     if (this.vidyoConnector) {
         this.vidyoConnector.SetCameraPrivacy({
             privacy: this.state.cameraButtonState
-        }).then(() => {
-            // SetCameraPrivacy Success
-        }).catch(() => {
-            // SetCameraPrivacy Failed
         });
     }
   }
@@ -283,6 +278,9 @@ class VidyoConnector extends Component {
 
   returnToRoomListOnClick() {
       this.setState({connectionStatus: "Disconnecting..."});
+      if (this.state.cameraButtonState) {
+        this.cameraButtonOnClick(!this.state.cameraButtonState);
+      }
       if (this.vidyoConnector) {
           this.vidyoConnector.Disconnect().then(() => {
               // Disconnect Success
